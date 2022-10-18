@@ -28,7 +28,7 @@ class _productScreenState extends State<productScreen> {
             height: 80.h,
             width: 100.w,
           
-         child: ListView.builder(itemCount: 5,itemBuilder: (context, index) {
+         child: ListView.builder(itemCount: item.products!.length,itemBuilder: (context, index) {
             return Container(
               color: Colors.blue,
               width: 100.w,
@@ -38,10 +38,16 @@ class _productScreenState extends State<productScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Ürün"),
+                  Container(
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                    child: Image.network("${item.products![index]["image"]}", fit: BoxFit.cover, width: 60,),
+                  ),
+                  Text("${item.products![index]["title"]}",style: TextStyle(fontWeight: FontWeight.bold),),
+                  Text("${item.products![index]["price"]} "r"$",style: TextStyle(fontWeight: FontWeight.bold), ),
                   InkWell(
                     onTap: () {
                       item.increase();
+                      item.addSepet(item.products![index]);
                     },
                     child: Container(
                     width: 4.h,
